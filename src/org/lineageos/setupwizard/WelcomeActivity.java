@@ -17,9 +17,10 @@
 
 package org.lineageos.setupwizard;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.setupcompat.util.SystemBarHelper;
 
@@ -29,26 +30,31 @@ public class WelcomeActivity extends BaseSetupWizardActivity {
 
     public static final String TAG = WelcomeActivity.class.getSimpleName();
 
-    private View mRootView;
+    //private View mRootView;
     private EnableAccessibilityController mEnableAccessibilityController;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SystemBarHelper.setBackButtonVisible(getWindow(), false);
-        mRootView = findViewById(R.id.setup_wizard_layout);
-        setNextText(R.string.start);
-        setSkipText(R.string.emergency_call);
+        View mRootView = findViewById(R.id.setup_wizard_layout);
+        //setNextText(R.string.start);
+        //setSkipText(R.string.emergency_call);
         findViewById(R.id.start).setOnClickListener(view -> onNextPressed());
-        findViewById(R.id.emerg_dialer)
+        /*findViewById(R.id.emerg_dialer)
                 .setOnClickListener(view -> startEmergencyDialer());
         findViewById(R.id.launch_accessibility)
-                .setOnClickListener(view -> startAccessibilitySettings());
+                .setOnClickListener(view -> startAccessibilitySettings());*/
         mEnableAccessibilityController =
                 EnableAccessibilityController.getInstance(getApplicationContext());
         mRootView.setOnTouchListener((v, event) ->
-                mEnableAccessibilityController.onTouchEvent(event));
+                mEnableAccessibilityController.onTouchEvent(event)
+        );
 
+        TextView welcomeText = findViewById(R.id.welcome_text);
+        String text = "hola\nbonjour\nHello\nПривет\nनमस्ते";
+        welcomeText.setText(text);
     }
 
     @Override
@@ -57,6 +63,6 @@ public class WelcomeActivity extends BaseSetupWizardActivity {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.welcome_activity;
+        return R.layout.styx_welcome;
     }
 }

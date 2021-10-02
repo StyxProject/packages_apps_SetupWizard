@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        style="@style/PageHeaderIcon"
+        android:src="@drawable/ic_calendar_today" />
+
+    <TextView
+        style="@style/PageTitle"
+        android:text="@string/setup_datetime" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Timezone"
+        android:textAppearance="@style/StyxTitle" />
+
+    <FrameLayout
+        android:id="@+id/timezone_selector"
+        android:layout_width="220dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/rounded_rect">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTint="@color/styx_black"
+            android:gravity="center"
+            android:paddingTop="4dp"
+            android:text="GMT +5:30"
+            android:textAppearance="@style/StyxSubTitle"
+            android:visibility="gone" />
+
+        <Spinner
+            android:id="@+id/timezone_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:saveEnabled="false" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_expand_more"
+            android:tint="@color/styx_black"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Current date"
+        android:textAppearance="@style/StyxSubTitle" />
+
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="17/09/21"
+        android:textAppearance="@style/StyxSubTitle2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Current time"
+        android:textAppearance="@style/StyxSubTitle" />
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="12:00PM"
+        android:textAppearance="@style/StyxSubTitle" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:ignore="NewApi" />
+
+    <TextView
+        android:id="@+id/next"
+        style="@style/StyxNext"
+        android:layout_gravity="end"
+        android:text="@string/next" />
+</LinearLayout>

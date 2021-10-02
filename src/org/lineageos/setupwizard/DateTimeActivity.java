@@ -60,13 +60,10 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
     private static final String XMLTAG_TIMEZONE = "timezone";
 
     private static final int HOURS_1 = 60 * 60000;
-
+    private final Handler mHandler = new Handler();
     private TimeZone mCurrentTimeZone;
     private TextView mDateTextView;
     private TextView mTimeTextView;
-
-    private final Handler mHandler = new Handler();
-
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -74,20 +71,82 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
         }
     };
 
+    private static SimpleAdapter constructTimezoneAdapter(Context context) {
+        final String[] from = new String[]{KEY_DISPLAYNAME, KEY_GMT};
+        final int[] to = new int[]{android.R.id.text1, android.R.id.text2};
+
+        final TimeZoneComparator comparator = new TimeZoneComparator(KEY_OFFSET);
+        final List<Map<String, Object>> sortedList = ZoneGetter.getZonesList(context);
+        Collections.sort(sortedList, comparator);
+        final SimpleAdapter adapter = new SimpleAdapter(context,
+                sortedList,
+                R.layout.date_time_setup_custom_list_item_2,
+                from,
+                to);
+
+        return adapter;
+    }
+
+    private static int getTimeZoneIndex(SimpleAdapter adapter, TimeZone tz) {
+        final String defaultId = tz.getID();
+        final int listSize = adapter.getCount();
+        for (int i = 0; i < listSize; i++) {
+            final Map<?, ?> map = (Map<?, ?>) adapter.getItem(i);
+            final String id = (String) map.get(KEY_ID);
+            if (defaultId.equals(id)) {
+                // If current timezone is in this list, move focus to it
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static void setDate(Context context, int year, int month, int day) {
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, day);
+        long when = c.getTimeInMillis();
+
+        if (when / 1000 < Integer.MAX_VALUE) {
+            ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).setTime(when);
+        }
+    }
+
+    private static void setTime(Context context, int hourOfDay, int minute) {
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        long when = c.getTimeInMillis();
+
+        if (when / 1000 < Integer.MAX_VALUE) {
+            ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).setTime(when);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setNextText(R.string.next);
+        //setNextText(R.string.next);
 
         final Spinner spinner = (Spinner) findViewById(R.id.timezone_list);
         final SimpleAdapter adapter = constructTimezoneAdapter(this);
         mCurrentTimeZone = TimeZone.getDefault();
-        View dateView = findViewById(R.id.date_item);
-        dateView.setOnClickListener((view) -> showDatePicker());
-        View timeView = findViewById(R.id.time_item);
-        timeView.setOnClickListener((view) -> showTimePicker());
+        //View dateView = findViewById(R.id.date_item);
+        //dateView.setOnClickListener((view) -> showDatePicker());
+        //View timeView = findViewById(R.id.time_item);
+        //timeView.setOnClickListener((view) -> showTimePicker());
         mDateTextView = (TextView) findViewById(R.id.date_text);
         mTimeTextView = (TextView) findViewById(R.id.time_text);
+
+        mDateTextView.setOnClickListener((view) -> showDatePicker());
+        mTimeTextView.setOnClickListener((view) -> showTimePicker());
+        findViewById(R.id.next).setOnClickListener(v -> onNextPressed());
+
         // Pre-select current/default timezone
         mHandler.post(() -> {
             int tzIndex = getTimeZoneIndex(adapter, mCurrentTimeZone);
@@ -98,7 +157,7 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position,
-                        long id) {
+                                           long id) {
                     final Map<?, ?> map = (Map<?, ?>) adapterView.getItemAtPosition(position);
                     final String tzId = (String) map.get(KEY_ID);
                     if (mCurrentTimeZone != null && !mCurrentTimeZone.getID().equals(tzId)) {
@@ -156,7 +215,7 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.setup_datetime_page;
+        return R.layout.styx_datetime;
     }
 
     @Override
@@ -166,7 +225,7 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
 
     @Override
     protected int getIconResId() {
-        return R.drawable.ic_datetime;
+        return R.drawable.ic_calendar_today;
     }
 
     @Override
@@ -196,63 +255,6 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
         final Calendar now = Calendar.getInstance();
         mTimeTextView.setText(DateFormat.getTimeFormat(this).format(now.getTime()));
         mDateTextView.setText(shortDateFormat.format(now.getTime()));
-    }
-
-    private static SimpleAdapter constructTimezoneAdapter(Context context) {
-        final String[] from = new String[]{KEY_DISPLAYNAME, KEY_GMT};
-        final int[] to = new int[]{android.R.id.text1, android.R.id.text2};
-
-        final TimeZoneComparator comparator = new TimeZoneComparator(KEY_OFFSET);
-        final List<Map<String, Object>> sortedList = ZoneGetter.getZonesList(context);
-        Collections.sort(sortedList, comparator);
-        final SimpleAdapter adapter = new SimpleAdapter(context,
-                sortedList,
-                R.layout.date_time_setup_custom_list_item_2,
-                from,
-                to);
-
-        return adapter;
-    }
-
-    private static int getTimeZoneIndex(SimpleAdapter adapter, TimeZone tz) {
-        final String defaultId = tz.getID();
-        final int listSize = adapter.getCount();
-        for (int i = 0; i < listSize; i++) {
-            final Map<?, ?> map = (Map<?, ?>) adapter.getItem(i);
-            final String id = (String) map.get(KEY_ID);
-            if (defaultId.equals(id)) {
-                // If current timezone is in this list, move focus to it
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private static void setDate(Context context, int year, int month, int day) {
-        Calendar c = Calendar.getInstance();
-
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, day);
-        long when = c.getTimeInMillis();
-
-        if (when / 1000 < Integer.MAX_VALUE) {
-            ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).setTime(when);
-        }
-    }
-
-    private static void setTime(Context context, int hourOfDay, int minute) {
-        Calendar c = Calendar.getInstance();
-
-        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        long when = c.getTimeInMillis();
-
-        if (when / 1000 < Integer.MAX_VALUE) {
-            ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).setTime(when);
-        }
     }
 
     private static class TimeZoneComparator implements Comparator<Map<?, ?>> {

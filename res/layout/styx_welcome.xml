@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        style="@style/PageHeaderIcon"
+        android:src="@drawable/ic_styx_logo" />
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5"
+        android:paddingBottom="32dp"
+        android:textSize="22sp"
+        tools:text="hola\nbonjour\nHello\nПривет\nनमस्ते" />
+
+    <ImageView
+        android:id="@+id/start"
+        style="@style/PageHeaderIcon"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="@dimen/setup_page_welcome_margin_bottom"
+        android:background="@drawable/circle"
+        android:padding="14dp"
+        android:src="@drawable/ic_forward"
+        android:tint="@color/black" />
+</LinearLayout>

@@ -62,7 +62,7 @@ public class BiometricActivity extends SubBaseActivity {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.setup_biometric;
+        return R.layout.styx_biometric;
     }
 
     @Override

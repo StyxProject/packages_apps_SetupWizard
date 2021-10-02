@@ -35,7 +35,7 @@ public class LocationSettingsActivity extends BaseSetupWizardActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setNextText(R.string.next);
+        //setNextText(R.string.next);
 
         mLocationAccess = (CheckBox) findViewById(R.id.location_checkbox);
         mLocationManager = getSystemService(LocationManager.class);
@@ -45,6 +45,8 @@ public class LocationSettingsActivity extends BaseSetupWizardActivity {
                     new UserHandle(UserHandle.USER_CURRENT));
             mLocationAccess.setChecked(!mLocationAccess.isChecked());
         });
+
+        findViewById(R.id.next).setOnClickListener(v -> onNextPressed());
     }
 
     @Override
@@ -55,7 +57,7 @@ public class LocationSettingsActivity extends BaseSetupWizardActivity {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.location_settings;
+        return R.layout.styx_location_services;
     }
 
     @Override

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2013 The CyanogenMod Project
      Copyright (C) 2017-2021 The LineageOS Project
 
@@ -16,6 +15,7 @@
      limitations under the License.
 -->
 <resources>
+
     <style name="SpinnerItem">
         <item name="android:textSize">15sp</item>
         <item name="android:paddingLeft">@dimen/content_margin_left</item>
@@ -42,4 +42,51 @@
     </style>
 
     <style name="NoDisplay" parent="@android:style/Theme.NoDisplay" />
+
+    <style name="PageHeaderIcon">
+        <item name="android:layout_width">@dimen/setup_page_header_icon_width</item>
+        <item name="android:layout_height">@dimen/setup_page_header_icon_height</item>
+        <item name="android:layout_marginTop">@dimen/setup_page_header_icon_margin_top</item>
+        <item name="android:clickable">false</item>
+        <item name="android:background">@null</item>
+        <item name="android:tint">@color/styx_black</item>
+    </style>
+
+    <style name="PageTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginTop">@dimen/setup_page_title_margin_top</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:lineSpacingMultiplier">1.02</item>
+    </style>
+
+    <style name="StyxTitle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="StyxSubTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="StyxSubTitle2">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+    </style>
+
+    <style name="StyxNext">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginBottom">56dp</item>
+        <item name="android:layout_marginEnd">18dp</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:drawableTint">@color/styx_black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:drawableEnd">@drawable/ic_forward_arrow</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
 </resources>

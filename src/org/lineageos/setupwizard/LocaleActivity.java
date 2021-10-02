@@ -36,7 +36,6 @@ import android.widget.Toast;
 
 import com.android.internal.telephony.TelephonyIntents;
 import com.android.internal.telephony.util.LocaleUtils;
-
 import com.google.android.setupcompat.util.SystemBarHelper;
 
 import org.lineageos.setupwizard.widget.LocalePicker;
@@ -47,16 +46,11 @@ import java.util.Locale;
 public class LocaleActivity extends BaseSetupWizardActivity {
 
     public static final String TAG = LocaleActivity.class.getSimpleName();
-
+    private final Handler mHandler = new Handler();
     private ArrayAdapter<com.android.internal.app.LocalePicker.LocaleInfo> mLocaleAdapter;
     private Locale mCurrentLocale;
     private int[] mAdapterIndices;
     private LocalePicker mLanguagePicker;
-    private FetchUpdateSimLocaleTask mFetchUpdateSimLocaleTask;
-    private final Handler mHandler = new Handler();
-    private boolean mPendingLocaleUpdate;
-    private boolean mPaused = true;
-
     private final Runnable mUpdateLocale = new Runnable() {
         public void run() {
             if (mCurrentLocale != null) {
@@ -65,7 +59,9 @@ public class LocaleActivity extends BaseSetupWizardActivity {
             }
         }
     };
-
+    private FetchUpdateSimLocaleTask mFetchUpdateSimLocaleTask;
+    private boolean mPendingLocaleUpdate;
+    private boolean mPaused = true;
     private final BroadcastReceiver mSimChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -79,9 +75,10 @@ public class LocaleActivity extends BaseSetupWizardActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SystemBarHelper.setBackButtonVisible(getWindow(), true);
-        setNextText(R.string.next);
+        //setNextText(R.string.next);
         mLanguagePicker = (LocalePicker) findViewById(R.id.locale_list);
         loadLanguages();
+        findViewById(R.id.next).setOnClickListener(v -> onNextPressed());
     }
 
     @Override
@@ -108,7 +105,7 @@ public class LocaleActivity extends BaseSetupWizardActivity {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.setup_locale;
+        return R.layout.styx_locale;
     }
 
     @Override

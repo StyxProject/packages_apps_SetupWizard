@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2013 The CyanogenMod Project
      Copyright (C) 2017-2021 The LineageOS Project
 
@@ -36,4 +35,8 @@
     <!-- Partner customization -->
     <color name="sud_glif_background_color_light">@color/white</color>
     <color name="sud_color_accent_glif_v3_light">@color/accent</color>
+
+    <!-- Styx Customizations -->
+    <color name="styx_black">#0E0E0E</color>
+    <color name="styx_translucent">#0A000000</color>
 </resources>
