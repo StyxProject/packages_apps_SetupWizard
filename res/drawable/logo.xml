@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (c) 2017, 2022 The LineageOS Project
+    Copyright (c) 2017, 2022 The LineageOS, Styx Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -14,15 +14,18 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="512dp"
-    android:height="260dp"
-    android:viewportWidth="512"
-    android:viewportHeight="260">
-
-    <path
-        android:fillColor="@color/lineage_accent"
-        android:pathData="M416,128a39.92,39.92,0,0,0-31.11,14.87l-1.5-.6A294.79,294.79,0,0,0,336,128.14s0-.09,0-.14a80,80,0,1,0-160,0s0,.09,0,.13l-1.72
-.38 a293.48,293.48,0,0,0-45.67,13.76l-1.5 .6
-a40,40,0,1,0,7.39,14.28h0a277.33,277.33,0,0,1,43.1-13,80,80,0,0,0,156.73,0,277.3,277.3,0,0,1,43.11,13h0A40,40,0,1,0,416,128ZM96,192a24,24,0,1,1,24-24A24,24,0,0,1,96,192Zm160,0a64,64,0,1,1,64-64A64.07,64.07,0,0,1,256,192Zm160,0a24,24,0,1,1,24-24A24,24,0,0,1,416,192ZM288,128a32,32,0,1,1-32-32A32,32,0,0,1,288,128Z" />
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="vector"
+    android:width="167dp"
+    android:height="173dp"
+    android:viewportWidth="167"
+    android:viewportHeight="173">
+    <group android:name="group">
+        <path
+            android:name="path"
+            android:pathData="M 159 172.258 L 8 172.258 C 3.582 172.258 0 168.677 0 164.258 L 0 146.477 C 0 143.504 1.649 140.776 4.281 139.394 L 50.583 115.085 C 55.044 125.521 65.402 132.834 77.469 132.834 C 93.609 132.834 106.694 119.75 106.694 103.609 C 106.694 97.868 105.039 92.514 102.179 87.998 L 155.281 60.119 C 160.608 57.322 167 61.186 167 67.202 L 167 164.258 C 167 168.677 163.418 172.258 159 172.258 Z M 8 -0.001 L 159 -0.001 C 163.418 -0.001 167 3.581 167 7.999 L 167 25.781 C 167 28.754 165.351 31.482 162.718 32.864 L 116.416 57.172 C 111.956 46.737 101.598 39.424 89.531 39.424 C 73.39 39.424 60.306 52.508 60.306 68.649 C 60.306 74.389 61.961 79.744 64.821 84.26 L 11.719 112.139 C 6.392 114.935 0 111.072 0 105.055 L 0 7.999 C 0 3.581 3.582 -0.001 8 -0.001 Z"
+            android:fillColor="@color/lineage_accent"
+            android:strokeWidth="1"/>
+    </group>
 </vector>
